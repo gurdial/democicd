@@ -1,6 +1,7 @@
 import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import * as pipelines from 'aws-cdk-lib/pipelines';
+import {PipelineAppStage} from './pipeline-app-stage';
 
 
 export class DemoawspipelineStack extends cdk.Stack {
@@ -25,11 +26,11 @@ export class DemoawspipelineStack extends cdk.Stack {
 
    
 
-  const testingStage = pipeline.addStage(new MyPipelineAppStage(this, 'testing', {
+  const testingStage = pipeline.addStage(new PipelineAppStage(this, 'testing', {
     env: { account: '127214181362', region: 'ap-southeast-2' }
   }));
 
-  testingStage.addPost(new ManualApprovalStep('approval'));
+  testingStage.addPost(new pipelines.ManualApprovalStep('approval'));
     
   }
 }
